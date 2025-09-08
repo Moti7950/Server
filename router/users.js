@@ -1,33 +1,52 @@
 import express from "express"
+import jsonData from "../lib/examplePost.json" with {type: "json"}
+
+// // import utiliti 
+import {filterPost} from "../utils/mapData.utility.js"
 
 // this user is not an admin user (admin web)
 const users = express.Router();
 
 // work with curl -X DELETE  http://127.0.0.1:9085/api/users/deletePost/:1
 // this api for delete a post
-users.delete("/deletePost/:id", (req, res)=>{
-    const {id} = req.params || {};
-    console.log("Hi from: user on route delete",id);
+users.delete("/deletePost/:id", (req, res) => {
+    const { id } = req.params || {};
+    console.log("Hi from: user on route delete", id);
 })
 
 // work with curl -X POST http://127.0.0.1:9085/api/users/create/post
 // this api for create a post
-users.post("/create/post",(req, res)=>{
+users.post("/create/post", (req, res) => {
     console.log("Hi from user on route create post");
 })
 
 // work with curl -X PUT http://127.0.0.1:9085/api/users/update/post/:2
 // this api for update a post
-users.put("/update/post/:id",(req, res)=>{
-    const {id} = req.params || {};
-    console.log("Hi from user on route update post",id);
+users.put("/update/post/:id", (req, res) => {
+    const { id } = req.params || {};
+    console.log("Hi from user on route update post", id);
 
 })
 
 // Work with curl -X GET http://127.0.0.1:9085/api/users/show/posts
 // this api for show all post
-users.get("/show/posts",(req, res)=>{
+users.get("/show/posts", (req, res) => {
     console.log("Hi from user on route show all posts");
+    try {
+        res.json(jsonData)
+    }
+    catch { }
+})
+
+// work with curl -X GET  http://127.0.0.1:9085/api/users/showOne/post/:1
+// this api for show one post
+users.get("/showOne/post/:id", (req, res) => {
+    const { id } = req.params || {};
+    console.log("Hi from user on route show one post", id);
+    const x = JSON.stringify(jsonData)
+    const result = filterPost(id, x);
+    if (result === 0) return res.status(404).send("post not found");
+    res.send(result)
 })
 
 export default users;
