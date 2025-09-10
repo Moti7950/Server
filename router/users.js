@@ -1,11 +1,35 @@
 import express from "express"
-import jsonData from "../lib/examplePost.json" with {type: "json"}
+import jsonData from "../lib/postList.json" with {type: "json"}
+// import bcrypt from "bcrypt";
+// import jwt from "jsonwebtoken";
 
 // // import utiliti 
-import {filterPost} from "../utils/mapData.utility.js"
+import {filterPost ,checkUserLogin} from "../utils/utilityFunction.js"
 
 // this user is not an admin user (admin web)
 const users = express.Router();
+
+users.post("/login", (req, res) => {
+    try {
+        const { userName, password } = req.body;
+        console.log(req.body);
+        if (userName && password) {
+            // const hashedPassword = await bcrypt.hash(password, 12);
+            const res = checkUserLogin(userName, password);
+            console.log(res ? true: false);
+            if (ok) {
+                return res.status(200).json({ message: "Login ok" });
+            } else {
+                return res.status(401).json({ error: "Invalid credentials" });
+            }
+        }
+        return res.status(400).json({ error: "Missing name or password" })
+    }
+    catch(err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error!!" })
+    }
+})
 
 // work with curl -X DELETE  http://127.0.0.1:9085/api/users/deletePost/:1
 // this api for delete a post
@@ -38,14 +62,16 @@ users.get("/show/posts", (req, res) => {
     catch { }
 })
 
+
 // work with curl -X GET  http://127.0.0.1:9085/api/users/showOne/post/:1
 // this api for show one post
 users.get("/showOne/post/:id", (req, res) => {
     const { id } = req.params || {};
     console.log("Hi from user on route show one post", id);
-    const x = JSON.stringify(jsonData)
-    const result = filterPost(id, x);
-    if (result === 0) return res.status(404).send("post not found");
+    const x = id.slice(1)
+    const result = filterPost(x)
+    console.log(typeof result, result);
+    if (!result) return res.status(404).send("post not found");
     res.send(result)
 })
 
