@@ -11,15 +11,11 @@ const users = express.Router();
 //ork with curl -X POST http://127.0.0.1:9085/api/users/login -H "Content-Type: application/json" -d'{"userName":"Moti", "password": "12345"}
 // // this api for login
 users.post("/login", (req, res) => {
-    console.log("HI from login");
     try {
         const { userName, password } = req.body;
-        console.log(req.body);
         if (userName && password) {
             // const hashedPassword = await bcrypt.hash(password, 12);
             const ok = checkUserLogin(userName, password);
-            console.log(ok ? true: false);
-            console.log(ok);
             if (ok) {
                 return res.status(200).json({ message: "Login ok" });
             } else {
@@ -43,8 +39,13 @@ users.delete("/deletePost/:id", (req, res) => {
 
 // work with curl -X POST http://127.0.0.1:9085/api/users/create/post
 // this api for create a post
-users.post("/create/post", (req, res) => {
-    console.log("Hi from user on route create post");
+users.post("/create/post",async (req, res) => {
+   try{
+    await newPost(req.body)
+   }
+   catch (err) {
+        res.status(500).json({ error: "Internal server error!!" })
+    }
 })
 
 // work with curl -X PUT http://127.0.0.1:9085/api/users/update/post/:2
@@ -58,11 +59,12 @@ users.put("/update/post/:id", (req, res) => {
 // Work with curl -X GET http://127.0.0.1:9085/api/users/show/posts
 // this api for show all post
 users.get("/show/posts", (req, res) => {
-    console.log("Hi from user on route show all posts");
     try {
         res.json(jsonData)
     }
-    catch { }
+    catch (err) {
+        res.status(500).json({ error: "Internal server error!!" })
+    }
 })
 
 
@@ -70,12 +72,14 @@ users.get("/show/posts", (req, res) => {
 // this api for show one post
 users.get("/showOne/post/:id", (req, res) => {
     const { id } = req.params || {};
-    console.log("Hi from user on route show one post", id);
-    const x = id.slice(1)
-    const result = filterPost(x)
-    console.log(typeof result, result);
+    try{
+        const filterCorectString = id.slice(1)
+    const result = filterPost(filterCorectString)
     if (!result) return res.status(404).send("post not found");
     res.send(result)
+    } catch (err) {
+        res.status(500).json({ error: "Internal server error!!" })
+    }
 })
 
 export default users;

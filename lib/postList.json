@@ -2,27 +2,27 @@
   {
     "id": 1,
     "img": "http://localhost:9085/1.jpg",
-    "explen": "11",
-    "likes": "D",
-    "ownerName": "1",
+    "explen": "bob avatar",
+    "likes": "👍🏻",
+    "ownerName": "bob",
     "dataAndTime": "12:51"
   },
 
   {
     "id": 2,
     "img": "http://localhost:9085/2.jpg",
-    "explen": "22",
-    "likes": "L",
-    "ownerName": "2",
+    "explen": "Alice avatar",
+    "likes": "👍🏻 💗",
+    "ownerName": "Alice",
     "dataAndTime": "12:52"
   },
 
   {
     "id": 3,
     "img": "http://localhost:9085/3.jpg",
-    "explen": "33",
-    "likes": "L",
-    "ownerName": "3",
+    "explen": "David avatar",
+    "likes": "😂",
+    "ownerName": "David",
     "dataAndTime": "12:53"
   }
 
