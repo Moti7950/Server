@@ -8,14 +8,16 @@ import {filterPost ,checkUserLogin} from "../utils/utilityFunction.js"
 
 // this user is not an admin user (admin web)
 const users = express.Router();
-
+//ork with curl -X POST http://127.0.0.1:9085/api/users/login -H "Content-Type: application/json" -d'{"userName":"Moti", "password": "12345"}
+// // this api for login
 users.post("/login", (req, res) => {
+    console.log("HI from login");
     try {
         const { userName, password } = req.body;
         console.log(req.body);
         if (userName && password) {
             // const hashedPassword = await bcrypt.hash(password, 12);
-            const res = checkUserLogin(userName, password);
+            const ok = checkUserLogin(userName, password);
             console.log(res ? true: false);
             if (ok) {
                 return res.status(200).json({ message: "Login ok" });
