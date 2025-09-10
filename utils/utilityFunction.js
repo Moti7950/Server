@@ -21,5 +21,3 @@ export function checkUserLogin(userName, password ,dbPath = jsonUser) {
     })
     return y
 }
-
-

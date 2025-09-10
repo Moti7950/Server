@@ -18,7 +18,8 @@ users.post("/login", (req, res) => {
         if (userName && password) {
             // const hashedPassword = await bcrypt.hash(password, 12);
             const ok = checkUserLogin(userName, password);
-            console.log(res ? true: false);
+            console.log(ok ? true: false);
+            console.log(ok);
             if (ok) {
                 return res.status(200).json({ message: "Login ok" });
             } else {
