@@ -21,3 +21,6 @@ export function checkUserLogin(userName, password ,dbPath = jsonUser) {
     })
     return y
 }
+
+const ok = checkUserLogin("userName", "password");
+console.log(ok ? true: false);
