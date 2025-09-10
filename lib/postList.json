@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "img": "http://localhost:9085/1.jpg",
+    "explen": "bob avatar",
+    "likes": "👍🏻",
+    "ownerName": "bob",
+    "dataAndTime": "12:51"
+  },
+
+  {
+    "id": 2,
+    "img": "http://localhost:9085/2.jpg",
+    "explen": "Alice avatar",
+    "likes": "👍🏻 💗",
+    "ownerName": "Alice",
+    "dataAndTime": "12:52"
+  },
+
+  {
+    "id": 3,
+    "img": "http://localhost:9085/3.jpg",
+    "explen": "David avatar",
+    "likes": "😂",
+    "ownerName": "David",
+    "dataAndTime": "12:53"
+  }
+
+]
